@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DialogueController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class DialogueController : MonoBehaviour
     public string[] Sentences;
     private int Index = 0;
     public float DialogueSpeed;
+    private bool finished= false;
 
     void  Start()
     {
@@ -18,6 +20,9 @@ public class DialogueController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(finished ){
+            SceneManager.LoadScene(3);
+        }
         if(Input.GetKeyDown(KeyCode.Space)){
             NextSentence();
         }
@@ -28,6 +33,8 @@ public class DialogueController : MonoBehaviour
         if(Index <=Sentences.Length -1){
             DialogueText.text = "";
             StartCoroutine(WriteSentences());
+        }else{
+            finished = true;
         }
     }
 
